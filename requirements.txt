@@ -2,4 +2,3 @@ google-cloud-bigquery
 yfinance
 pyarrow
 pandas
-os
