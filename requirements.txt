@@ -1,3 +1,6 @@
 google-cloud-bigquery
+yfinance
+pyarrow
 pandas
 ftplib
+os
