@@ -35,6 +35,9 @@ jobs:
     - name: Debug - Check Environment Variable
       run: echo $GOOGLE_APPLICATION_CREDENTIALS
 
+    - name: Debug - Check if credentials file is created
+      run: cat service_account_key.json    
+
     - name: Run ETL Pipeline
       run: python main.py
 
