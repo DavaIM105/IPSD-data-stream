@@ -35,9 +35,13 @@ jobs:
     - name: Run ETL Pipeline
       run: python main.py
 
+    - name: Setup GitHub credentials
+      run: |
+        git remote set-url origin https://DavaIM105:${{ secrets.PAT_TOKEN }}@github.com/DavaIM105/IPSD-data-stream.git
+
     - name: Commit and push changes
       run: |
-        git config user.name "DavaIL105"
+        git config user.name "DavaIM105"
         git config user.email "l200220105@studenet.ums.ac.id"
         git add data_saham.csv latest_data_saham.csv
         git commit -m "Update data_saham.csv and latest_data_saham.csv"
