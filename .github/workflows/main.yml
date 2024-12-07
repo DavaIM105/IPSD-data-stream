@@ -21,10 +21,9 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Decode Google Cloud Credentials
-      run: |
-        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > service_account_key.json
-    
+    - name: setup Google Cloud Credentials
+      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > service_account_key.json
+
     - name: Set Environment Variable
       # Menentukan path ke file JSON sebagai Default Credentials
       run: echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service_account_key.json" >> $GITHUB_ENV
