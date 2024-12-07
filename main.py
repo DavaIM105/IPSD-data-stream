@@ -27,7 +27,7 @@ def etl_pipeline():
         if os.path.exists(old_data_name):
             logging.info(f"Reading old data from {old_data_name}")
             old_data = pd.read_csv(old_data_name, index_col=0, header=[0, 1])
-            new_data = data[~data.index.isin(old_data.index)]
+            new_data = data[~data.index.isin(old_data.index.astype(data.index.dtype))]
         else:
             logging.info("No previous data found. Starting fresh.")
             new_data = data
