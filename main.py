@@ -25,7 +25,6 @@ def etl_pipeline():
 
         # Step 2: Transform - Bersihkan dan validasi data
         if os.path.exists(old_data_name):
-            print(old_data_name, "is exist")
             logging.info(f"Reading old data from {old_data_name}")
             old_data = pd.read_csv(old_data_name, index_col=0, header=[0, 1])
             new_data = data[~data.index.isin(old_data.index.astype(data.index.dtype))]
@@ -44,13 +43,11 @@ def etl_pipeline():
         df.fillna(0, inplace=True)  # Isi NaN dengan 0
         df.drop_duplicates(inplace=True)  # Hapus duplikasi
         df.index = pd.to_datetime(df.index)  # Konversi indeks ke datetime
-        print(pd.read_csv(old_data_name))
 
         # Gabungkan multi-index kolom
         df.columns = ['_'.join(map(str, col)) for col in df.columns]
         df.columns = [col.replace('.', '-') for col in df.columns]  # Format nama kolom agar sesuai BigQuery
         logging.info("Data cleaning completed.")
-        print(pd.read_csv(latest_data_name))
 
         # Step 3: Load - Muat data ke BigQuery
         logging.info("Loading data to BigQuery...")
