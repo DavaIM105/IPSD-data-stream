@@ -11,6 +11,7 @@ def etl_pipeline():
         symbols = ["BBCA.JK", "TLKM.JK", "UNVR.JK"]
         data = yf.download(tickers=symbols, period="5d", interval="1m")
         data.to_csv("latest_data_saham.csv")
+        print(data)
     
         
         # Transform: Bersihkan data
@@ -19,7 +20,9 @@ def etl_pipeline():
         if os.path.exists(old_data_name):
             old_data = pd.read_csv(old_data_name, index_col=0, header=[0,1])
             data.to_csv(old_data_name)
-            new_data = data[~data.index.isin(old_data.index)]
+            # new_data = data[~data.index.isin(old_data.index)]
+            new_data = data[~data.index.isin(old_data.index.astype(data.index.dtype))]
+
             
         new_data.to_csv(latest_data_name)
             
@@ -57,7 +60,4 @@ def etl_pipeline():
         print("Error:", e)
     
     
-etl_pipeline()
-    
-
-    
+etl_pipeline()    
