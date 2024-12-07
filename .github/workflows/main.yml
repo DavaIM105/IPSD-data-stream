@@ -23,11 +23,11 @@ jobs:
 
     - name: Setup Google Cloud Credentials
       # Membuat file JSON dari secrets
-      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > data-stream-spread-1e6157f18c20.json
+      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > service_account_key.json
 
     - name: Set Environment Variable
       # Menentukan path ke file JSON sebagai Default Credentials
-      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/data-stream-spread-1e6157f18c20.json" >> $GITHUB_ENV
+      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service_account_key.json" >> $GITHUB_ENV
 
     - name: Run ETL Pipeline
       run: python main.py
