@@ -2,7 +2,7 @@ name: Run ETL Pipeline
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Jalankan setiap hari pukul 06:00 UTC
+    - cron: '*/30 * * * *'  # Jalankan setiap hari pukul 06:00 UTC
 
 jobs:
   run-etl:
@@ -19,6 +19,14 @@ jobs:
 
     - name: Install dependencies
       run: pip install -r requirements.txt
+
+    - name: Setup Google Cloud Credentials
+      # Membuat file JSON dari secrets
+      run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > service_account_key.json
+
+    - name: Set Environment Variable
+      # Menentukan path ke file JSON sebagai Default Credentials
+      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service_account_key.json" >> $GITHUB_ENV
 
     - name: Run ETL Pipeline
       run: python main.py
