@@ -1,6 +1,7 @@
 name: Run ETL Pipeline
 
 on:
+  workflow_dispatch:  # Menambahkan trigger manual
   schedule:
     - cron: '*/30 * * * *'  # Jalankan setiap hari pukul 06:00 UTC
 
