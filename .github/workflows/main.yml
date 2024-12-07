@@ -35,4 +35,13 @@ jobs:
     - name: Run ETL Pipeline
       run: python main.py
 
+    - name: Commit and push changes
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add data_saham.csv latest_data_saham.csv
+        git commit -m "Update data_saham.csv and latest_data_saham.csv"
+        git push
+
+
     
