@@ -25,6 +25,7 @@ def etl_pipeline():
 
         # Step 2: Transform - Bersihkan dan validasi data
         if os.path.exists(old_data_name):
+            print(old_data_name, "is exist")
             logging.info(f"Reading old data from {old_data_name}")
             old_data = pd.read_csv(old_data_name, index_col=0, header=[0, 1])
             new_data = data[~data.index.isin(old_data.index.astype(data.index.dtype))]
