@@ -17,7 +17,7 @@ def etl_pipeline():
         # Step 1: Extract - Ambil data dari Yahoo Finance
         symbols = ["BBCA.JK", "TLKM.JK", "UNVR.JK"]
         logging.info(f"Fetching data for symbols: {symbols}")
-        data = yf.download(tickers=symbols, period="5d", interval="1m")
+        data = yf.download(tickers=symbols, period="5d", interval="5m")
 
         if data.empty:
             logging.warning("No data fetched. Terminating pipeline.")
