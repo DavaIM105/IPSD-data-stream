@@ -3,7 +3,7 @@ name: Run ETL Pipeline
 on:
   workflow_dispatch:  # Menambahkan trigger manual
   schedule:
-    - cron: '14 9 * * 1-5'  #'mnt jm tgl bln hr' #'*/n setiap sekian'
+    - cron: '30 9 * * 1-5'  #'mnt jm tgl bln hr' #'*/n setiap sekian'
 
 jobs:
   run-etl:
