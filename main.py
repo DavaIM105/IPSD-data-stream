@@ -50,21 +50,21 @@ def etl_pipeline():
         logging.info("Data cleaning completed.")
         logging.info(f"Transformed Data saved to {trans_data}")
 
-        # # Step 3: Load - Muat data ke BigQuery
-        # logging.info("Loading data to BigQuery...")
-        # client = bigquery.Client()
-        # table_id = "data-stream-spread.dataset_stream_saham.saham_bca_bri"
+        # Step 3: Load - Muat data ke BigQuery
+        logging.info("Loading data to BigQuery...")
+        lient = bigquery.Client()
+        table_id = "data-stream-spread.dataset_stream_saham.saham_bca_bri"
 
-        # job_config = bigquery.LoadJobConfig(
-        #     autodetect=True,
-        #     write_disposition=bigquery.WriteDisposition.WRITE_APPEND
-        # )
+        job_config = bigquery.LoadJobConfig(
+            autodetect=True,
+            write_disposition=bigquery.WriteDisposition.WRITE_APPEND
+        )
 
-        # # Muat DataFrame ke BigQuery
-        # add_data = pd.read_csv(trans_data, index_col=0, parse_dates=True)
-        # job = client.load_table_from_dataframe(add_data, table_id, job_config=job_config)
-        # job.result()  # Tunggu hingga proses selesai
-        # logging.info(f"Data successfully loaded to BigQuery table: {table_id}")
+        # Muat DataFrame ke BigQuery
+        add_data = pd.read_csv(trans_data, index_col=0, parse_dates=True)
+        job = client.load_table_from_dataframe(add_data, table_id, job_config=job_config)
+        job.result()  # Tunggu hingga proses selesai
+        logging.info(f"Data successfully loaded to BigQuery table: {table_id}")
 
     except Exception as e:
         logging.error(f"An error occurred: {e}", exc_info=True)
