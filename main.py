@@ -52,7 +52,7 @@ def etl_pipeline():
 
         # Step 3: Load - Muat data ke BigQuery
         logging.info("Loading data to BigQuery...")
-        lient = bigquery.Client()
+        client = bigquery.Client()
         table_id = "data-stream-spread.dataset_stream_saham.saham_bca_bri"
 
         job_config = bigquery.LoadJobConfig(
