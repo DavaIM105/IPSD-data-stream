@@ -12,12 +12,24 @@ def etl_pipeline():
         # Paths untuk file
         new_data = "data_saham.csv"
         trans_data = "[Trans]data_saham.csv"
-        latest_data = "latest_data_saham.csv"
 
         # Step 1: Extract - Ambil data dari Yahoo Finance
         symbols = ["BBCA.JK", "BBRI.JK"]
+        max_retries = 3
         logging.info(f"Fetching data for symbols: {symbols}")
-        data = yf.download(tickers=symbols, period="1d", interval="5m")
+
+        for attempt in range(max_retries):
+            try:
+                logging.info(f"Fetching data for symbols: {symbols} (Attempt {attempt + 1}/{max_retries})")
+                data = yf.download(tickers=symbols, period="1d", interval="5m")
+                if data[("Close", "BBCA.JK")].any() and data[("Close", "BBRI.JK")].any():
+                    logging.info("Data fetched successfully and 'Close' column is valid.")
+                    break
+            except:
+                logging.error(f"Error fetching data: {e}")
+            if attempt == max_retries-1:
+                logging.error("Max retries reached. Terminating pipeline.")
+                return
         data.to_csv(new_data)
         
         if data.empty:
@@ -50,7 +62,7 @@ def etl_pipeline():
         logging.info("Data cleaning completed.")
         logging.info(f"Transformed Data saved to {trans_data}")
 
-        # Step 3: Load - Muat data ke BigQuery
+       ''' # Step 3: Load - Muat data ke BigQuery
         logging.info("Loading data to BigQuery...")
         client = bigquery.Client()
         table_id = "data-stream-spread.dataset_stream_saham.saham_bca_bri"
@@ -64,7 +76,7 @@ def etl_pipeline():
         add_data = pd.read_csv(trans_data, index_col=0, parse_dates=True)
         job = client.load_table_from_dataframe(add_data, table_id, job_config=job_config)
         job.result()  # Tunggu hingga proses selesai
-        logging.info(f"Data successfully loaded to BigQuery table: {table_id}")
+        logging.info(f"Data successfully loaded to BigQuery table: {table_id}")'''
 
     except Exception as e:
         logging.error(f"An error occurred: {e}", exc_info=True)
