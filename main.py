@@ -2,7 +2,6 @@ from google.cloud import bigquery
 import yfinance as yf
 import pandas as pd
 import logging
-import os
 
 def etl_pipeline():
     try:
