@@ -35,6 +35,9 @@ jobs:
     - name: Run ETL Pipeline
       run: python main.py
 
+    - name: Run Visualisasi
+      run: python visualisasi.py
+
     - name: Setup GitHub credentials
       run: |
         git remote set-url origin https://DavaIM105:${{ secrets.PAT_TOKEN }}@github.com/DavaIM105/IPSD-data-stream.git
