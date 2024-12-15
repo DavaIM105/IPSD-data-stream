@@ -38,30 +38,6 @@ axes[1].set_xlabel('Tanggal', fontsize=12)
 axes[1].grid(True)
 axes[1].legend()
 
-# # Sesuaikan layout dan simpan file gambar
-# plt.tight_layout()
-
-# timestamp = datetime.now().strftime("%Y-%m-%d")
-# month = datetime.now().strftime("%B")
-# year = datetime.now().strftime("%Y")
-
-# if not os.path.exists(f"./visualisasi/{year}"):
-#     os.mkdir(os.getcwd()+f"/visualisasi/{year}")
-# if not os.path.exists(f"./visualisasi/{year}/{month}"):
-#     os.mkdir(os.getcwd()+f"/visualisasi/{year}/{month}")
-    
-# output_file = f"./visualisasi/{year}/{month}/grafik_streaming_{timestamp}.png"
-# plt.savefig(output_file)
-# # plt.show()
-
-# print(f"Gambar telah disimpan di: {output_file}")
-
-
-
-# import os
-# from datetime import datetime
-# import matplotlib.pyplot as plt
-
 # Sesuaikan layout dan simpan file gambar
 plt.tight_layout()
 
