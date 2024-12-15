@@ -1,11 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
+import os
 
 # Membaca file CSV
-# file_path = "/mnt/data/[Trans]data_saham.csv"
-# df = pd.read_csv(file_path)
-df = pd.read_csv('[Trans]data_saham.csv', sep=';')
+df = pd.read_csv('[Trans]data_saham.csv')
 
 # Ganti nama kolom ini dengan kolom di file CSV Anda
 tanggal_kolom = 'Datetime'    # Nama kolom tanggal
@@ -39,11 +38,50 @@ axes[1].set_xlabel('Tanggal', fontsize=12)
 axes[1].grid(True)
 axes[1].legend()
 
+# # Sesuaikan layout dan simpan file gambar
+# plt.tight_layout()
+
+# timestamp = datetime.now().strftime("%Y-%m-%d")
+# month = datetime.now().strftime("%B")
+# year = datetime.now().strftime("%Y")
+
+# if not os.path.exists(f"./visualisasi/{year}"):
+#     os.mkdir(os.getcwd()+f"/visualisasi/{year}")
+# if not os.path.exists(f"./visualisasi/{year}/{month}"):
+#     os.mkdir(os.getcwd()+f"/visualisasi/{year}/{month}")
+    
+# output_file = f"./visualisasi/{year}/{month}/grafik_streaming_{timestamp}.png"
+# plt.savefig(output_file)
+# # plt.show()
+
+# print(f"Gambar telah disimpan di: {output_file}")
+
+
+
+# import os
+# from datetime import datetime
+# import matplotlib.pyplot as plt
+
 # Sesuaikan layout dan simpan file gambar
 plt.tight_layout()
-timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-output_file = f"grafik_streaming_{timestamp}.png"
-plt.savefig(output_file)
-plt.show()
 
+# Mendapatkan timestamp, bulan, dan tahun saat ini
+timestamp = datetime.now().strftime("%Y-%m-%d")
+month = datetime.now().strftime("%B")
+year = datetime.now().strftime("%Y")
+
+# Membuat path folder output
+output_dir = os.path.join(os.getcwd(), "visualisasi", year, month)
+
+# Membuat folder jika belum ada
+os.makedirs(output_dir, exist_ok=True)
+
+# Menyusun nama file output
+output_file = os.path.join(output_dir, f"grafik_streaming_{timestamp}.png")
+
+# Menyimpan gambar
+plt.savefig(output_file)
+
+# Menampilkan pesan konfirmasi
 print(f"Gambar telah disimpan di: {output_file}")
+
