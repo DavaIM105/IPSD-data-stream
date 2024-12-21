@@ -3,3 +3,4 @@ yfinance
 pyarrow
 pandas
 matplotlib
+db-dtypes
