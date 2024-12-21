@@ -59,7 +59,7 @@ try:
     # grafik BBRI-JK
     axes[1].plot(df.index, df['BBRI-JK'], marker='x', color='red', label='BBRI-JK')
     axes[1].set_ylabel('Harga', fontsize=12)
-    axes[1].set_xlabel('Tanggal', fontsize=12)
+    axes[1].set_xlabel('Waktu(UTC)', fontsize=12)
     axes[1].grid(True)
     axes[1].legend()
 
