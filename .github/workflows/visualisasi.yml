@@ -1,0 +1,51 @@
+name: Run visualisasi
+
+on:
+  workflow_dispatch:  # Menambahkan trigger manual
+  schedule:
+    - cron: '30 9 * * 1-5'  #'mnt jm tgl bln hr' #'*/n setiap sekian'
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+   
+    - name: Decode Google Cloud Credentials
+      run: |
+        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > service_account_key.json
+    
+    - name: Set Environment Variable
+      # Menentukan path ke file JSON sebagai Default Credentials
+      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service_account_key.json" >> $GITHUB_ENV
+
+    - name: Debug - Check Environment Variable
+      run: echo $GOOGLE_APPLICATION_CREDENTIALS
+
+    - name: Run Visualisasi
+      run: python visualization.py
+
+    - name: Setup GitHub credentials
+      run: |
+        git remote set-url origin https://DavaIM105:${{ secrets.PAT_TOKEN }}@github.com/DavaIM105/IPSD-data-stream.git
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "DavaIM105"
+        git config user.email "l200220105@studenet.ums.ac.id"
+        git add visualisasi/
+        git commit -m "Update data saham dan visualisasi"
+        git push
+
+
+    
