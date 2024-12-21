@@ -6,8 +6,7 @@ import logging
 import os
 
 # Mendapatkan timestamp, bulan, dan tahun saat ini
-# timestamp = datetime.now().strftime("%Y-%m-%d")
-timestamp = '2024-12-10'
+timestamp = datetime.now().strftime("%Y-%m-%d")
 month = datetime.now().strftime("%B")
 year = datetime.now().strftime("%Y")
 
@@ -74,7 +73,7 @@ try:
     os.makedirs(output_dir, exist_ok=True)
 
     # Menyusun nama file output
-    output_file = os.path.join(output_dir, f"(tes)grafik_streaming_{timestamp}.png")
+    output_file = os.path.join(output_dir, f"grafik_streaming_{timestamp}.png")
 
     # Menyimpan gambar
     plt.savefig(output_file)
