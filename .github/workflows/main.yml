@@ -36,7 +36,7 @@ jobs:
       run: python main.py
 
     - name: Run Visualisasi
-      run: python visualisasi.py
+      run: python visualization.py
 
     - name: Setup GitHub credentials
       run: |
