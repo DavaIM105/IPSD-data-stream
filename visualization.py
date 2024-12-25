@@ -39,7 +39,7 @@ try:
     ORDER BY Datetime DESC
     """
     df = client.query(query).to_dataframe()
-
+    print(df.head)
     # Pastikan Datetime terkonversi dengan benar
     df['Datetime'] = pd.to_datetime(df['Datetime'])
     df.set_index('Datetime', inplace=True)
